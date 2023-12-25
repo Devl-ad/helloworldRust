@@ -1,6 +1,10 @@
 fn main() {
     println!("Hello, world!");
     // Variable
+    let i: i32; // initializin a variable with value
+    i = 30;
+
+    println!("I is = {i}");
     let name = "sammy";
     println!("my name is {}", name);
 
@@ -39,5 +43,19 @@ fn main() {
     let z: char = 'ℤ'; // with explicit type annotation
     let heart_eyed_cat = '😻';
 
-    println!("c = {c} , z = {z} , cat  = {heart_eyed_cat} ")
+    println!("c = {c} , z = {z} , cat  = {heart_eyed_cat} ");
+
+    //  Tuples
+
+    let tup = (30, 0.7, "sammy");
+    let (_numi, numii, _numiiii) = tup;
+
+    println!("The value of numii is = {numii}");
+
+    let q: (i32, i32, i32) = (2, 4, 7);
+    println!("q index o is {}", q.0);
+
+    // Arrays
+    let a = [1, 4, 2, 7, 8, 6];
+    println!(" array of index 3 is {}", a[3]);
 }
