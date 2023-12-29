@@ -1,3 +1,5 @@
+use std::io;
+
 fn main() {
     // conditions
     let is_rust_fun = true;
@@ -38,5 +40,37 @@ fn main() {
 
     for index in a {
         println!("the value is {index}")
+    }
+
+    for i in 1..=10 {
+        println!("i  is = {i}")
+    }
+
+    for i in (1..=10).rev() {
+        println!("i reversed is = {i}")
+    }
+
+    // continue and break
+    for n in 1..=10 {
+        if n % 2 == 0 {
+            continue;
+        }
+        println!("n = {}", n);
+        if n == 7 {
+            break;
+        }
+    }
+
+    //  match
+    println!("Please enter a greeting");
+
+    let mut greeting = String::new();
+    io::stdin()
+        .read_line(&mut greeting)
+        .expect("Faild to read input");
+    match greeting.trim() {
+        "Goodbye" => println!("Sorry to see you go"),
+        "Hello" => println!("Hi, nice to meet you"),
+        _ => println!("I can't find a greeting, Goodbye "),
     }
 }
