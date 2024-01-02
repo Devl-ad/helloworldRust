@@ -32,5 +32,14 @@ fn main() {
     // println!("{} world ,len={}", s1, len)
 
     let len = calculate_length(&s1);
-    println!("{} world ,len={}", s1, len)
+    println!("{} world ,len={}", s1, len);
+
+    let sn = String::from("Hello");
+
+    // let r1 = &sn;
+    // let r2 = &mut sn;
+    let r1 = &sn;
+    let r2 = &sn;
+
+    println!("{},{}", r1, r2);
 }
