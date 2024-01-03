@@ -1,12 +1,27 @@
+use std::{
+    fs::File,
+    io::{BufRead, BufReader},
+};
+
 /*
- Print the lyrics to the Christmas carol
-  “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
+open and read a file then handle the error if there's an error with match
 */
 fn main() {
-    let twelve_day_of_christmas = [
-        "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-    ];
-    for (index, &value) in twelve_day_of_christmas.iter().enumerate() {
-        println!("On the {index} day of Christmas my true love said to me {value}")
+    let file = File::open("none_existing.txt");
+    let file = match file {
+        Ok(file) => file,
+        Err(error) => match error.kind() {
+            std::io::ErrorKind::NotFound => {
+                panic!("File not found {}", error)
+            }
+            _ => {
+                panic!("Error opening file {}", error)
+            }
+        },
+    };
+
+    let reader = BufReader::new(file);
+    for line in reader.lines() {
+        println!("{}", line.unwrap())
     }
 }

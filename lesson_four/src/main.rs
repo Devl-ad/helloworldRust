@@ -42,4 +42,10 @@ fn main() {
     let r2 = &sn;
 
     println!("{},{}", r1, r2);
+
+    // slices
+    let g = String::from("Hello world");
+    let hello = &g[0..5];
+    let world = &g[6..11];
+    println!("{} {}", hello, world)
 }
