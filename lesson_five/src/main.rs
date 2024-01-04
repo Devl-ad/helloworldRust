@@ -5,12 +5,24 @@ struct User {
     active: bool,
 }
 
+impl User {
+    fn new(id: u8, username: String, email: String) -> User {
+        User {
+            id,
+            username,
+            email,
+            active: true,
+        }
+    }
+
+    fn deactivat(&mut self) {
+        self.active = false;
+    }
+}
+
 fn main() {
-    let p1 = User {
-        id: 1,
-        username: "John".to_string(),
-        email: "john@mail.com".to_string(),
-        active: true,
-    };
-    println!("name = {}", p1.id);
+    let mut p1 = User::new(1, "sammy".to_string(), "sam@mail.com".to_string());
+    println!("Account {} status is {}", p1.username, p1.active);
+    p1.deactivat();
+    println!("Account {} status is {}", p1.username, p1.active);
 }
