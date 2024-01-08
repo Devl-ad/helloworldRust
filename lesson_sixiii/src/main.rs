@@ -5,24 +5,29 @@ enum FileSize {
     Gigabytes(u64),
 }
 
-fn format_size(size: u64) -> String {
-    let filesize = match size {
-        0..=999 => FileSize::Bytes(size),
-        1000..=999_999 => FileSize::Kilobytes(size / 1000),
-        1_000_000..=999_999_999 => FileSize::Megabytes(size / 1_000_000),
-        _ => FileSize::Gigabytes(size / 1_000_000_000),
-    };
+impl FileSize {
+    fn file(size: u64) -> Self {
+        let filesize = match size {
+            0..=999 => FileSize::Bytes(size),
+            1000..=999_999 => FileSize::Kilobytes(size / 1000),
+            1_000_000..=999_999_999 => FileSize::Megabytes(size / 1_000_000),
+            _ => FileSize::Gigabytes(size / 1_000_000_000),
+        };
+        filesize
+    }
 
-    match filesize {
-        FileSize::Bytes(bytes) => format!("{} bytes", bytes),
-        FileSize::Kilobytes(kb) => format!("{} KB", kb as f64 / 1000.0),
-        FileSize::Megabytes(mb) => format!("{} MB", mb as f64 / 1000.0),
-        FileSize::Gigabytes(gb) => format!("{} GB", gb as f64 / 1000.0),
+    fn format_size(&self) -> String {
+        match self {
+            FileSize::Bytes(bytes) => format!("{} bytes", bytes),
+            FileSize::Kilobytes(kb) => format!("{} KB", *kb as f64 / 1000.0),
+            FileSize::Megabytes(mb) => format!("{} MB", *mb as f64 / 1000.0),
+            FileSize::Gigabytes(gb) => format!("{} GB", *gb as f64 / 1000.0),
+        }
     }
 }
 
 fn main() {
-    let result = format_size(8788896655989);
+    let file = FileSize::file(8788896655989);
 
-    println!("{}", result)
+    println!("{}", file.format_size())
 }
