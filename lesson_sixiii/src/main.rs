@@ -1,55 +1,28 @@
-// Enums
-#[derive(Debug)]
-enum WineRegion {
-    ITALY,
-    FRANCE,
+enum FileSize {
+    Bytes(u64),
+    Kilobytes(u64),
+    Megabytes(u64),
+    Gigabytes(u64),
 }
 
-struct Wine {
-    name: String,
-    region: WineRegion,
-}
+fn format_size(size: u64) -> String {
+    let filesize = match size {
+        0..=999 => FileSize::Bytes(size),
+        1000..=999_999 => FileSize::Kilobytes(size / 1000),
+        1_000_000..=999_999_999 => FileSize::Megabytes(size / 1_000_000),
+        _ => FileSize::Gigabytes(size / 1_000_000_000),
+    };
 
-impl WineRegion {
-    fn call(&self) {
-        println!("{:?}", self)
-    }
-}
-
-fn printwine(w: &WineRegion) {
-    match w {
-        WineRegion::FRANCE => {
-            println!("A great wine from france")
-        }
-
-        WineRegion::ITALY => {
-            println!("Best wine from italy")
-        } // _ => {
-          //     println!("Region not found")
-          // }
+    match filesize {
+        FileSize::Bytes(bytes) => format!("{} bytes", bytes),
+        FileSize::Kilobytes(kb) => format!("{} KB", kb as f64 / 1000.0),
+        FileSize::Megabytes(mb) => format!("{} MB", mb as f64 / 1000.0),
+        FileSize::Gigabytes(gb) => format!("{} GB", gb as f64 / 1000.0),
     }
 }
 
 fn main() {
-    let wine1 = Wine {
-        name: "shp".to_string(),
-        region: WineRegion::FRANCE,
-    };
-    let wine2 = Wine {
-        name: "ty".to_string(),
-        region: WineRegion::ITALY,
-    };
+    let result = format_size(8788896655989);
 
-    printwine(&wine1.region);
-
-    wine2.region.call();
-
-    println!("{} form {:?}", wine1.name, wine1.region);
-    println!("{} form {:?}", wine2.name, wine2.region);
-
-    let x = 8;
-    let y: Option<i32> = Some(10);
-    let z = x + y.unwrap_or(0);
-
-    println!("{z}")
+    println!("{}", result)
 }
